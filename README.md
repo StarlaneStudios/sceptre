@@ -1,32 +1,30 @@
 <br>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/StarlaneStudios/react-router-tree/main/.github/logo.svg" height="164">
+  <img src="https://raw.githubusercontent.com/StarlaneStudios/sceptre/main/.github/logo.svg" height="164">
 </p>
 
 # Sceptre
 
-Implement Next.js style page directories in your single page application. Supports React projects created using [Vite](https://vitejs.dev/) or [CRA](https://create-react-app.dev/) (or any other webpack implementation).
+Implement Next.js style page directories in your single page application by generating routing definitions from a page directory.
 
 ## Installation
 
-Install the package using NPM
+Install the CLI
 
 ```
-npm install react-router-tree
+npm install -g sceptre
 ```
 
 ## Page folder structure
 
-Pages are defined using a folder structure in your application. Subfolders denote path segments, while pages map to `index.tsx` or `index.jsx` files. In react-router-tree, each page is given it's own directory, in which assets and styles can be placed, allowing for a clean and structured page setup.
+Pages are defined using a folder structure in your application. Subfolders denote path segments, while pages map to `index.tsx` or `index.jsx` files. When using sceptre, each page is given it's own directory in which assets and styles can be placed, allowing for a clean and structured page setup.
 
 ## Exporting pages
 
 Each page is expected to contain a default export of it's `RouteObject`. For TypeScript users a `defineRoute` helper function is included. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
 
 ```tsx
-import { defineRoute } from "react-router-tree";
-
 function IndexPage() {
 	return (
 		<div>
@@ -35,9 +33,9 @@ function IndexPage() {
 	)
 }
 
-export default defineRoute({
+export default {
 	element: <IndexPage />
-});
+};
 ```
 
 ### URL Parameters
@@ -61,21 +59,6 @@ Visual example:
 /example/page/_			- Rendered inside outlet 1 and responsible for rendering outlet 2
 /example/page/@			- Rendered inside outlet 2
 /example/page/child 	- Rendered inside outlet 2
-```
-
-## Alternative paths
-
-The route object returned from a page allows defining a list of alternative routes that can be used to reach the page. These alternative paths are relative to the route itself and share the same meta.
-
-Example:
-```tsx
-export default defineRoute({
-	element: <HelpPage />,
-	alternatives: [
-		{ path: 'instructions' },
-		{ path: 'sub/path/:param' }
-	]
-});
 ```
 
 ### Example folder structure
@@ -114,26 +97,17 @@ The above example translates to the given routes
 ```
 
 ## Usage
-```ts
-// Using vite:
-const pageTree: RouteTree = {
-	prefix: './pages',
-	routes: import.meta.glob('./pages/**/index.tsx', { eager: true })
-};
-
-// Using Create React App:
-const pageTree: RouteTree = {
-	prefix: './',
-	routes: require.context('./pages/', true, /\index\.tsx$/)
-};
-
-// Combine page trees into a single array of routes
-const routes = buildRouteObjects(pageTree);
+```bash
+sceptre --base ./pages ./**/*.tsx ./routes.ts
 ```
 
-## Example
+This command will compile all pages placed within the pages directory ending with .tsx and generates a routes.ts.
 
-An example implementation can be found [here](https://github.com/StarlaneStudios/react-router-tree/tree/main/example).
+### Base directory
+The `--base` flag indicates the location in which the glob pattern will search. By default it is set to the current execution directory.
+
+### Identing
+You can optionally pass `--indent none | tab | <number>` to control the indentation of the generated routing configuration. By default indentation is disabled.
 
 ## Vindigo
 
@@ -141,6 +115,6 @@ This package was originally developed for use in [Vindigo](https://github.com/St
 
 ## License
 
-react-router-tree is licensed under [MIT](https://github.com/StarlaneStudios/react-router-tree/blob/main/LICENSE)
+sceptre is licensed under [MIT](https://github.com/StarlaneStudios/sceptre/blob/main/LICENSE)
 
 Copyright (c) 2022-present, [Starlane Studios](https://starlane.studio/)
