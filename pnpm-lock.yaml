@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@types/node': ^18.11.9
   '@types/yargs': ^17.0.24
-  colors: ^1.4.0
+  chalk: ^5.2.0
   commander: ^10.0.0
   esbuild: ^0.17.15
   eslint: ^8.22.0
@@ -15,6 +15,7 @@ specifiers:
   yargs: ^17.7.1
 
 dependencies:
+  chalk: 5.2.0
   commander: 10.0.0
   fast-glob: 3.2.12
   yargs: 17.7.1
@@ -22,7 +23,6 @@ dependencies:
 devDependencies:
   '@types/node': 18.11.9
   '@types/yargs': 17.0.24
-  colors: 1.4.0
   esbuild: 0.17.15
   eslint: 8.37.0
   eslint-plugin-unicorn: 44.0.2_eslint@8.37.0
@@ -433,6 +433,11 @@ packages:
       supports-color: 7.2.0
     dev: true
 
+  /chalk/5.2.0:
+    resolution: {integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: false
+
   /ci-info/3.8.0:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
     engines: {node: '>=8'}
@@ -472,11 +477,6 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
-
-  /colors/1.4.0:
-    resolution: {integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==}
-    engines: {node: '>=0.1.90'}
-    dev: true
 
   /commander/10.0.0:
     resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}

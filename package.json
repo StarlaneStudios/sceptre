@@ -25,10 +25,10 @@
 		"cli": "node dist/cli.js"
 	},
 	"dependencies": {
+		"chalk": "^5.2.0",
 		"commander": "^10.0.0",
 		"fast-glob": "^3.2.12",
-		"yargs": "^17.7.1",
-		"colors": "^1.4.0"
+		"yargs": "^17.7.1"
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.9",

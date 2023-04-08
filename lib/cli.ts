@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
-import 'colors';
-
-import { readFileSync, writeFileSync } from 'fs';
 import { program } from 'commander';
+import { readFileSync, writeFileSync } from 'fs';
 import { Indent, SceptreOptions, generateRoutes } from './generator.js';
 import { fileURLToPath } from 'node:url';
+import chalk from 'chalk';
+
+const INFO = chalk.blue('➜ ');
+const SUCCESS = chalk.green('➜ ');
+const ERROR = chalk.red('✖ ');
 
 const pkgPath = fileURLToPath(new URL('../package.json', import.meta.url));
 const pkgInfo = JSON.parse(readFileSync(pkgPath, 'utf-8'));
@@ -35,8 +38,8 @@ function handleGeneration(pattern: string, output: string, { indent, base, force
 		pattern: pattern
 	};
 
-	console.log(`${'➜'.blue}  Running Sceptre version ${pkgInfo.version}`);
-	console.log(`${'➜'.blue}  Generating routing index ${output.bold}...`);
+	console.log(`${INFO} Running Sceptre version ${pkgInfo.version}`);
+	console.log(`${INFO} Generating routing index ${chalk.bold(output)}...`);
 
 	if (indent !== undefined) {
 		if (indent != 'none' && indent != 'tab' && isNaN(Number.parseInt(indent))) {
@@ -45,19 +48,19 @@ function handleGeneration(pattern: string, output: string, { indent, base, force
 
 		config.indent = indent as Indent;
 
-		console.log(`${'➜'.blue}  Configured indent: ${indent.cyan}`);
+		console.log(`${INFO} Configured indent: ${chalk.cyan(indent)}`);
 	}
 
 	if (base !== undefined) {
 		config.base = base;
 
-		console.log(`${'➜'.blue}  Configured base path: ${base.cyan}`);
+		console.log(`${INFO} Configured base path: ${chalk.cyan(base)}`);
 	}
 
 	if (forceJs !== undefined) {
 		config.forceJs = forceJs;
 
-		console.log(`${'➜'.blue}  Configured forced .js extensions`);
+		console.log(`${INFO} Configured forced .js extensions`);
 	}
 
 	const index = generateRoutes(config, output);
@@ -67,9 +70,9 @@ function handleGeneration(pattern: string, output: string, { indent, base, force
 
 		const duration = (Date.now() - startTime).toString() + 'ms';
 
-		console.log(`${'➜'.green}  Routing index generated successfully (${duration.bold})`);
+		console.log(`${SUCCESS} Routing index generated successfully (${chalk.bold(duration)})`);
 	} catch(err: any) {
-		console.log(`${'✖'.red}  Failed to generate routing index: ${err.message}`);
+		console.log(`${ERROR} Failed to generate routing index: ${err.message}`);
 
 		throw new Error('Failed to generate routing index', { cause: err });
 	}
