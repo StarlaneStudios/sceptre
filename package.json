@@ -27,17 +27,20 @@
 	"dependencies": {
 		"commander": "^10.0.0",
 		"fast-glob": "^3.2.12",
-		"yargs": "^17.7.1"
+		"yargs": "^17.7.1",
+		"colors": "^1.4.0"
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.9",
 		"@types/yargs": "^17.0.24",
-		"colors": "^1.4.0",
 		"esbuild": "^0.17.15",
 		"eslint": "^8.22.0",
 		"eslint-plugin-unicorn": "^44.0.2",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"tslib": "^2.4.1",
 		"typescript": "^4.9.3"
+	},
+	"engines": {
+		"node": ">=18.0.0"
 	}
 }
