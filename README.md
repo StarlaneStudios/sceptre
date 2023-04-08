@@ -22,7 +22,7 @@ Pages are defined using a folder structure in your application. Subfolders denot
 
 ## Exporting pages
 
-Each page is expected to contain a default export of it's `RouteObject`. For TypeScript users a `defineRoute` helper function is included. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
+Each page is expected to contain a default export of it's `RouteObject`. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
 
 ```tsx
 function IndexPage() {
