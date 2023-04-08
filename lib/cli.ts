@@ -18,6 +18,7 @@ program
 	.argument('<output>', 'The output file to generate')
 	.option('--indent <mode>', `Either 'none', 'tab' or an amount of spaces`)
 	.option('--base <path>', `The base path containing all pages`)
+	.option('--force-js', `Force the generated imports to use .js extensions`)
 	.action(handleGeneration)
 	.showHelpAfterError()
 	.parse();
@@ -25,9 +26,10 @@ program
 interface Options {
 	indent?: string;
 	base?: string;
+	forceJs?: boolean;
 }
 
-function handleGeneration(pattern: string, output: string, { indent, base }: Options) {
+function handleGeneration(pattern: string, output: string, { indent, base, forceJs }: Options) {
 	const startTime = Date.now();
 	const config: SceptreOptions = {
 		pattern: pattern
@@ -50,6 +52,12 @@ function handleGeneration(pattern: string, output: string, { indent, base }: Opt
 		config.base = base;
 
 		console.log(`${'➜'.blue}  Configured base path: ${base.cyan}`);
+	}
+
+	if (forceJs !== undefined) {
+		config.forceJs = forceJs;
+
+		console.log(`${'➜'.blue}  Configured forced .js extensions`);
 	}
 
 	const index = generateRoutes(config, output);

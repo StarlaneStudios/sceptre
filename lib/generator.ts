@@ -9,6 +9,7 @@ export interface SceptreOptions {
 	pattern?: string;
 	indent?: Indent;
 	base?: string;
+	forceJs?: boolean;
 }
 
 type SceptreConfig = Required<SceptreOptions>;
@@ -16,7 +17,8 @@ type SceptreConfig = Required<SceptreOptions>;
 const defaultOptions: SceptreConfig = {
 	pattern: '**/*.tsx',
 	indent: 'none',
-	base: '.'
+	base: '.',
+	forceJs: false
 };
 
 /**
@@ -35,8 +37,7 @@ export function generateRoutes(options: SceptreOptions, target: string): string 
 
 	for (const path of files) {
 		const hash = '_' + createHash('md5').update(path).digest('hex').substring(0, 10);
-		const relativePath = relative(dirname(target), path);
-		const correctPath = relativePath.startsWith('.') ? relativePath : `.${sep}${relativePath}`;
+		const importPath = buildImportPath(config, path, target);
 		const cleanPath = relative(config.base, normalize(path));
 
 		if (cleanPath.startsWith('..')) {
@@ -45,7 +46,7 @@ export function generateRoutes(options: SceptreOptions, target: string): string 
 
 		routeMap[cleanPath] = hash;
 
-		output += `import ${hash} from '${correctPath}';\n`;
+		output += `import ${hash} from '${importPath}';\n`;
 	}
 
 	const index: Record<string, any> = {};
@@ -84,6 +85,26 @@ export function generateRoutes(options: SceptreOptions, target: string): string 
 	output += '\nexport default ' + expandNode(config, 1, index) + ';';
 
 	return output;
+}
+
+/**
+ * Build the import path for the given file.
+ * 
+ * @param config The configuration
+ * @param path The path to the file
+ * @param target The path for imports to be relative to
+ */
+function buildImportPath(config: SceptreConfig, path: string, target: string): string {
+	const relativePath = relative(dirname(target), path);
+	const correctPath = relativePath.startsWith('.') ? relativePath : `.${sep}${relativePath}`;
+
+	if (config.forceJs) {
+		const lastIndex = correctPath.lastIndexOf('.');
+		
+		return correctPath.substring(0, lastIndex) + '.js';
+	}
+
+	return correctPath;
 }
 
 /**
