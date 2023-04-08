@@ -26,15 +26,15 @@ Each page is expected to contain a default export of it's `RouteObject`. The `pa
 
 ```tsx
 function IndexPage() {
-	return (
-		<div>
-			Page content
-		</div>
-	)
+    return (
+        <div>
+            Page content
+        </div>
+    )
 }
 
 export default {
-	element: <IndexPage />
+    element: <IndexPage />
 };
 ```
 
@@ -65,25 +65,25 @@ Visual example:
 
 ```
 pages/
-	@/
-		index.tsx
-		styles.tsx
-	help/
-		index.tsx
-		style.scss
-	settings/
-		_/
-			index.tsx
-		overview/
-			index.tsx
-		[param]/
-			index.tsx
-	folder/
-		_/
-			index.tsx
-		[...]/
-			index.tsx
-			style.scss
+    @/
+        index.tsx
+        styles.tsx
+    help/
+        index.tsx
+        style.scss
+    settings/
+        _/
+            index.tsx
+        overview/
+            index.tsx
+        [param]/
+            index.tsx
+    folder/
+        _/
+            index.tsx
+        [...]/
+            index.tsx
+            style.scss
 ```
 
 The above example translates to the given routes
@@ -98,16 +98,19 @@ The above example translates to the given routes
 
 ## Usage
 ```bash
-sceptre --base ./pages ./**/*.tsx ./routes.ts
+sceptre ./src/pages/**/index.tsx ./src/generated/routes.ts --base ./src/pages
 ```
 
-This command will compile all pages placed within the pages directory ending with .tsx and generates a routes.ts.
+This command will compile all index components placed recursively within the pages directory and generates a routes.ts.
 
 ### Base directory
-The `--base` flag indicates the location in which the glob pattern will search. By default it is set to the current execution directory.
+The `--base` flag should point to the directory containing all pages. By default it is set to the current execution directory.
 
 ### Identing
 You can optionally pass `--indent none | tab | <number>` to control the indentation of the generated routing configuration. By default indentation is disabled.
+
+### Forced js extensions
+Certain environments may require all script file imports to end with `.js` regardless of their actual extension. In this case you can pass the `--force-js` flag.
 
 ## Vindigo
 
