@@ -66,7 +66,7 @@ export function generateRoutes(options: SceptreOptions, target: string): string 
 			return ub - ua;
 		})
 		.map(([path, value]) => [
-			path.replace(/(\/@)/, '')			// Ignore @ folders
+			path.replace(/@/, '')				// Ignore @ folders
 				.replace(/\/[^\/]+$/, '')		// Remove file name
 				.replace(/\[(\w+)\]/g, ':$1')	// Convert [param] to :param
 				.replace(/\[\.{3}\]/g, '*')		// Convert [...] to *
