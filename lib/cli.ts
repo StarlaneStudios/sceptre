@@ -22,6 +22,7 @@ program
 	.option('--indent <mode>', `Either 'none', 'tab' or an amount of spaces`)
 	.option('--base <path>', `The base path containing all pages`)
 	.option('--force-js', `Force the generated imports to use .js extensions`)
+	.option('--info-field <name>', `The field to declare page info on`, 'info')
 	.action(handleGeneration)
 	.showHelpAfterError()
 	.parse();
@@ -30,12 +31,14 @@ interface Options {
 	indent?: string;
 	base?: string;
 	forceJs?: boolean;
+	infoField: string;
 }
 
-function handleGeneration(pattern: string, output: string, { indent, base, forceJs }: Options) {
+function handleGeneration(pattern: string, output: string, { indent, base, forceJs, infoField }: Options) {
 	const startTime = Date.now();
 	const config: SceptreOptions = {
-		pattern: pattern
+		pattern: pattern,
+		infoField: infoField
 	};
 
 	console.log(`${INFO} Running Sceptre version ${pkgInfo.version}`);
