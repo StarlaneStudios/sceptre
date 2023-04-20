@@ -1,7 +1,7 @@
 {
 	"name": "sceptre",
 	"description": "A CLI tool for compiling React Router page structures into generated imports",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"type": "module",
 	"license": "MIT",
 	"files": [
