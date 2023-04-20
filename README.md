@@ -25,17 +25,19 @@ Pages are defined using a folder structure in your application. Subfolders denot
 Each page is expected to contain a default export of it's `RouteObject`. The `path` property will automatically be populated when parsing the tree, so it may be omitted.
 
 ```tsx
-function IndexPage() {
+const IndexPage = () => {
     return (
         <div>
             Page content
         </div>
     )
+};
+
+IndexPage.info = {
+	title: 'Index Page'
 }
 
-export default {
-    element: <IndexPage />
-};
+export default IndexPage;
 ```
 
 ### URL Parameters
